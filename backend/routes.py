@@ -119,12 +119,13 @@ def update_song(id):
 
     return jsonify(updated_song), 201
 
-@app.route("/song/<int:id>", methods=["DELETE"])
+@app.route('/song/<int:id>', methods=['DELETE'])
 def delete_song(id):
-
+    # Delete the song from the database
     result = db.songs.delete_one({"id": id})
+
     if result.deleted_count == 0:
-        return {"message": "song not found"}, 404
-    else:
-        return "", 204
+        return jsonify({"message": "song not found"}), 404
+    
+    return '', 204
 
